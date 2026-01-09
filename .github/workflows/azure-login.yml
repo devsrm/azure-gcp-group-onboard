@@ -3,6 +3,9 @@ name: Azure Login with SPN
 on:
   workflow_dispatch:   # manual trigger
 
+permissions:
+  contents: read 
+  
 jobs:
   login:
     runs-on: ubuntu-latest
