@@ -34,4 +34,4 @@ jobs:
         run: ls -R      
 
       - name: Get secret from Key Vault
-        run: python identity-scripts/get_kv_secret.py
+        run: python identity-scripts/get-kv-secret.py
