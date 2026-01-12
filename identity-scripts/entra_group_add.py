@@ -64,7 +64,7 @@ def validate_entra_group(group_name: str, token: str):
     Returns (group_id, display_name) if valid.
     Exits with code 1 if not found.
     """
-
+    group_name = group_name.strip()
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
