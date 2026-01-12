@@ -1,7 +1,14 @@
-name: Azure Login with SPN
+name: Entra Group → Google Workspace Onboarding
 
 on:
   workflow_dispatch:
+    inputs:
+      requestor:
+        required: true
+      technical_owner_group:
+        required: true
+      group_owner_id:
+        required: true
 
 permissions:
   contents: read   # no OIDC
@@ -13,17 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-
       - name: Azure Login using SPN secret
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           auth-type: SERVICE_PRINCIPAL
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt    
 
       - name: Verify login
         run: |
@@ -33,5 +39,14 @@ jobs:
       - name: Debug repo structure
         run: ls -R      
 
-      - name: Get secret from Key Vault
-        run: python identity-scripts/get-kv-secret.py
+      # --------------------------------------------------
+      # 6. Fetch SPNA client secret from Key Vault
+      #    + get Microsoft Graph token using MSAL
+      # --------------------------------------------------
+      - name: Get Microsoft Graph token for SPNA
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.SPNA_CLIENT_ID }}   # SPNA (membership manager)
+          KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
+        run: |
+          python identity-scripts/get_spna_graph_token.py
