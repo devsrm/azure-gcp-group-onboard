@@ -48,5 +48,6 @@ jobs:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.SPNA_CLIENT_ID }}   # SPNA (membership manager)
           KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
+          TECHNICAL_OWNER_GROUP: ${{ inputs.technical_owner_group }}
         run: |
           python identity-scripts/entra_group_add.py
