@@ -49,4 +49,4 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.SPNA_CLIENT_ID }}   # SPNA (membership manager)
           KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
         run: |
-          python identity-scripts/get_spna_graph_token.py
+          python identity-scripts/entra_group_add.py
