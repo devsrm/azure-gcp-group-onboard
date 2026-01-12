@@ -9,7 +9,7 @@ from azure.keyvault.secrets import SecretClient
 TENANT_ID = os.environ["AZURE_TENANT_ID"]
 CLIENT_ID = os.environ["AZURE_CLIENT_ID"]        # SPNA client ID
 KEYVAULT_NAME = os.environ["KEYVAULT_NAME"]
-SECRET_NAME = "spna-client-secret"                # name in Key Vault
+SECRET_NAME = "membership-manager"                # name in Key Vault
 
 KEYVAULT_URL = f"https://{KEYVAULT_NAME}.vault.azure.net"
 
